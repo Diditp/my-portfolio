@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>body{margin:0}img{max-width:100%}</style>
+<title>Didit Putra — Mobile Engineer</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: single reading column; case studies as two-column blocks (text | phone gallery) that stack on phones. */
+:root{
+  --bg:#F4F6F3; --surface:#FFFFFF; --fg:#16211C; --muted:#5B6A62; --line:#DCE3DE;
+  --accent:#1E7A57; --accent-soft:#E2F1EA; --warn:#9A5B00; --warn-soft:#FBEFD9;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"Manrope", "Segoe UI", system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F1512; --surface:#16201B; --fg:#E7EEEA; --muted:#9BABA2; --line:#26332C;
+  --accent:#5FCB9C; --accent-soft:#183128; --warn:#F2B866; --warn-soft:#33270F; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F1512; --surface:#16201B; --fg:#E7EEEA; --muted:#9BABA2; --line:#26332C;
+  --accent:#5FCB9C; --accent-soft:#183128; --warn:#F2B866; --warn-soft:#33270F; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1040px;margin:0 auto;padding-block:48px 72px;display:grid;gap:72px}
+h1,h2,h3{font-family:var(--display);line-height:1.15;margin:0;text-wrap:balance}
+h1{font-size:clamp(2.4rem,6vw,3.8rem);font-weight:700;letter-spacing:-.02em}
+h2{font-size:clamp(1.6rem,3.4vw,2.2rem);font-weight:700}
+h3{font-size:1.1rem;font-weight:700}
+p{margin:0;max-width:65ch}
+a{color:var(--accent)}
+a:focus-visible,.btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.eyebrow{font-family:var(--mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.muted{color:var(--muted)}
+
+/* hero */
+.hero{display:grid;gap:20px;padding-top:24px}
+.hero .lead{font-size:1.15rem;color:var(--muted)}
+.links{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:10px;border:1px solid var(--line);
+  background:var(--surface);color:var(--fg);text-decoration:none;font-weight:600;font-size:.95rem}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.btn:hover{border-color:var(--accent)}
+.facts{display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:12px;font-family:var(--mono);font-size:.85rem;color:var(--muted)}
+.facts b{color:var(--fg);font-weight:500}
+
+/* section heads */
+.sec{display:grid;gap:28px}
+.sec-head{display:grid;gap:8px;border-top:1px solid var(--line);padding-top:24px}
+
+/* case study */
+.case{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:40px;align-items:start}
+.case .text{display:grid;gap:18px;min-width:0}
+.status{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.78rem;padding:4px 10px;border-radius:999px;width:fit-content}
+.status::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor}
+.status.live{background:var(--accent-soft);color:var(--accent)}
+.status.dev{background:var(--warn-soft);color:var(--warn)}
+.kv{display:grid;grid-template-columns:110px minmax(0,1fr);gap:8px 16px;font-size:.95rem}
+.kv dt{font-family:var(--mono);font-size:.8rem;color:var(--muted);padding-top:2px}
+.kv dd{margin:0}
+ul.points{margin:0;padding-left:1.1em;display:grid;gap:8px}
+ul.points li::marker{color:var(--accent)}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-family:var(--mono);font-size:.75rem;padding:3px 8px;border:1px solid var(--line);border-radius:6px;color:var(--muted)}
+
+.gallery{display:flex;gap:14px;overflow-x:auto;padding-bottom:10px;scroll-snap-type:x mandatory;min-width:0}
+.gallery figure{margin:0;flex:0 0 46%;scroll-snap-align:start}
+.gallery img{display:block;width:100%;height:auto;border-radius:14px;border:1px solid var(--line);background:var(--surface)}
+.gallery figcaption{font-size:.8rem;color:var(--muted);margin-top:6px}
+.hint{font-size:.8rem;color:var(--muted)}
+
+/* sync diagram */
+.diagram{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;overflow-x:auto}
+.diagram svg{display:block;min-width:460px;width:100%;height:auto}
+.diagram text{font-family:var(--mono);font-size:12px;fill:var(--fg)}
+.diagram .sub{fill:var(--muted);font-size:11px}
+.diagram .box{fill:var(--bg);stroke:var(--line)}
+.diagram .hl{fill:var(--accent-soft);stroke:var(--accent)}
+.diagram .arrow{stroke:var(--accent);stroke-width:1.5;fill:none}
+.diagram .head{fill:var(--accent)}
+
+/* evolution */
+.timeline{display:grid;gap:0;border-left:2px solid var(--line);margin-left:6px}
+.step{position:relative;padding:0 0 28px 24px;display:grid;gap:6px}
+.step::before{content:"";position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--accent)}
+.step.now::before{background:var(--accent)}
+.step .when{font-family:var(--mono);font-size:.8rem;color:var(--muted)}
+
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;display:grid;gap:10px;align-content:start;min-width:0}
+
+.skills{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.skills h3{font-family:var(--mono);font-size:.8rem;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.skills ul{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:4px}
+
+.contact{display:grid;gap:14px}
+.contact .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.contact code{font-family:var(--mono);background:var(--surface);border:1px solid var(--line);padding:8px 12px;border-radius:8px;user-select:all}
+footer{font-size:.8rem;color:var(--muted)}
+
+@media (max-width:820px){
+  .case{grid-template-columns:minmax(0,1fr)}
+  .grid2,.skills{grid-template-columns:minmax(0,1fr)}
+  .gallery figure{flex-basis:62%}
+}
+@media (prefers-reduced-motion:no-preference){.btn{transition:border-color .15s}}
+</style>
+</head>
+<body>
+
+<main class="wrap">
+
+  <header class="hero">
+    <span class="eyebrow">Mobile Software Engineer · Flutter</span>
+    <h1>Didit Putra</h1>
+    <p class="lead">I build finance and point-of-sale apps with Flutter. I shipped a multi-tenant accounting app to Google Play and the App Store, and I'm building an offline-first POS that runs on Android, iOS, Windows and macOS.</p>
+    <div class="links">
+      <a class="btn primary" href="#work">See my work</a>
+      <a class="btn" href="https://www.linkedin.com/in/didit-putra-2534b0277/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="#contact">Contact</a>
+    </div>
+    <div class="facts">
+      <span><b>2+</b> years with Flutter</span>
+      <span><b>5</b> client companies on the live app</span>
+      <span><b>4</b> platforms</span>
+      <span>Based in <b>Denpasar, Bali</b>, Indonesia</span>
+    </div>
+  </header>
+
+  <section class="sec" id="work">
+    <div class="sec-head">
+      <span class="eyebrow">Case study 01</span>
+      <h2>Xeloka Mobile</h2>
+      <p class="muted">A finance &amp; accounting app for recording money in and out, so accountants see transactions as soon as staff enter them.</p>
+    </div>
+
+    <div class="case">
+      <div class="text">
+        <span class="status live">Live on Google Play &amp; App Store</span>
+        <dl class="kv">
+          <dt>Role</dt><dd>Built the first version at PT Your Lex Advisor, then rebuilt and released it as the sole mobile developer at PT Hare Business Consulting.</dd>
+          <dt>Users</dt><dd>5 client companies, mostly villa management: owners, staff and accountants.</dd>
+          <dt>Team</dt><dd>Me on mobile; a separate backend team documents the APIs in Swagger/OpenAPI.</dd>
+        </dl>
+        <h3>What I did</h3>
+        <ul class="points">
+          <li>Split the app into 9 Clean Architecture packages with a one-way dependency flow, fixing the circular dependencies of the first version.</li>
+          <li>Migrated push notifications from OneSignal to Firebase Cloud Messaging, including deep linking.</li>
+          <li>Set up 6 GitHub Actions workflows for Android and iOS store releases and over-the-air patches.</li>
+          <li>Added hybrid updates with Shorebird and Remote Config, so hotfixes reach users without waiting for store review.</li>
+          <li>Built offline receipt scanning with on-device ML Kit OCR, keeping financial documents on the phone.</li>
+          <li>Wrote SQLite migrations in single transactions with tests, so existing users never lost data on update.</li>
+          <li>Fixed production crashes found in Crashlytics, including R8 rules and image texture crashes.</li>
+        </ul>
+        <h3>Results</h3>
+        <ul class="points">
+          <li>Live on Google Play and the App Store, used by 5 client companies.</li>
+          <li>Hotfixes reach users through Shorebird patches without waiting for store review.</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">Flutter</span><span class="tag">BLoC</span><span class="tag">Clean Architecture</span><span class="tag">get_it</span><span class="tag">sqflite</span><span class="tag">Shorebird</span><span class="tag">GitHub Actions</span><span class="tag">Firebase</span><span class="tag">ML Kit</span>
+        </div>
+        <div class="links">
+          <a class="btn" href="https://play.google.com/store/apps/details?id=com.advisor79.xeloka" target="_blank" rel="noopener">Google Play</a>
+          <a class="btn" href="https://apps.apple.com/us/app/xeloka/id6751311668" target="_blank" rel="noopener">App Store</a>
+        </div>
+      </div>
+
+      <div>
+        <div class="gallery" aria-label="App screenshots">
+          <figure><img src="img/shot-1.webp" alt="Home dashboard with balance and weekly cash flow" width="540" height="960"><figcaption>Dashboard</figcaption></figure>
+          <figure><img src="img/shot-2.webp" alt="Bill and invoice form" width="540" height="960"><figcaption>Bills &amp; invoices</figcaption></figure>
+          <figure><img src="img/shot-3.webp" alt="Quick actions for money in, spend and top up" width="540" height="960"><figcaption>Quick actions</figcaption></figure>
+          <figure><img src="img/shot-4.webp" alt="Daily sales entry form" width="540" height="960"><figcaption>Daily sales</figcaption></figure>
+          <figure><img src="img/shot-5.webp" alt="PDF report export" width="540" height="960"><figcaption>PDF export</figcaption></figure>
+          <figure><img src="img/shot-6.webp" alt="Switching between companies" width="540" height="960"><figcaption>Multi-company</figcaption></figure>
+        </div>
+        <p class="hint">Scroll sideways for more. Screens use demo data from the store listing.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-head">
+      <span class="eyebrow">Case study 02</span>
+      <h2>Xeloka POS</h2>
+      <p class="muted">A multiplatform cashier app for clients who sell in stores, built to keep working when the internet drops.</p>
+    </div>
+
+    <div class="case">
+      <div class="text">
+        <span class="status dev">In development · not yet released</span>
+        <dl class="kv">
+          <dt>Platforms</dt><dd>Android, iOS, Windows, macOS, landscape and keyboard-first.</dd>
+          <dt>Payments</dt><dd>Settled through existing bank partnerships, no third-party gateway.</dd>
+        </dl>
+        <h3>Technical highlights</h3>
+        <ul class="points">
+          <li><b>Offline-first sync engine.</b> Sales are saved locally first and uploaded in order when online. Server changes are downloaded as deduplicated, idempotent updates, so nothing is lost or counted twice.</li>
+          <li><b>Offline tax calculation.</b> Taxes are calculated on the device per product, since some items are taxable and some are not. Cashiers see correct totals without internet, and posted transactions match the backend's calculation.</li>
+          <li><b>Thermal printing.</b> ESC/POS receipts over Bluetooth, USB and network, plus PDF receipts, tested on real printers.</li>
+          <li><b>Desktop features.</b> F1–F12 shortcuts, a customer-facing display in a second window, and a Windows installer.</li>
+          <li><b>Guard tests.</b> Automated checks for architecture rules, design tokens and translation coverage.</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">Flutter desktop</span><span class="tag">BLoC/Cubit</span><span class="tag">Dio</span><span class="tag">SQLite WAL</span><span class="tag">ESC/POS</span><span class="tag">bloc_test</span>
+        </div>
+      </div>
+
+      <figure class="diagram" style="margin:0" aria-label="How offline sync works">
+        <svg viewBox="0 0 480 300" role="img">
+          <title>Offline-first sync flow</title>
+          <rect class="hl" x="10" y="20" width="140" height="56" rx="10"/>
+          <text x="80" y="44" text-anchor="middle">Cashier sale</text>
+          <text class="sub" x="80" y="62" text-anchor="middle">works offline</text>
+
+          <rect class="box" x="170" y="20" width="140" height="56" rx="10"/>
+          <text x="240" y="44" text-anchor="middle">Local SQLite</text>
+          <text class="sub" x="240" y="62" text-anchor="middle">saved first (WAL)</text>
+
+          <rect class="box" x="330" y="20" width="140" height="56" rx="10"/>
+          <text x="400" y="44" text-anchor="middle">Server</text>
+          <text class="sub" x="400" y="62" text-anchor="middle">source of truth</text>
+
+          <path class="arrow" d="M150 48 H166"/><path class="head" d="M170 48 l-7 -4 v8z"/>
+          <path class="arrow" d="M310 40 H326"/><path class="head" d="M330 40 l-7 -4 v8z"/>
+          <text class="sub" x="320" y="32" text-anchor="middle">upload</text>
+          <path class="arrow" d="M330 58 H314"/><path class="head" d="M310 58 l7 -4 v8z"/>
+
+          <rect class="box" x="10" y="110" width="460" height="176" rx="10"/>
+          <text x="26" y="136">When back online</text>
+          <text class="sub" x="26" y="162">1  Upload pending data, oldest first: open shift → sales → close shift</text>
+          <text class="sub" x="26" y="186">2  Download change log, keep only the latest change per record</text>
+          <text class="sub" x="26" y="210">3  Apply in dependency order, in batches, idempotent upserts</text>
+          <text class="sub" x="26" y="234">4  Mark as downloaded only after the local save succeeds</text>
+          <text class="sub" x="26" y="258">5  Network error → retry later, nothing marked as failed</text>
+          <path class="arrow" d="M400 76 V106"/><path class="head" d="M400 110 l-4 -7 h8z"/>
+        </svg>
+      </figure>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-head">
+      <span class="eyebrow">How the finance app grew</span>
+      <h2>From first version to production</h2>
+    </div>
+    <div class="timeline">
+      <div class="step">
+        <span class="when">Feb 2024 – Jul 2025 · PT Your Lex Advisor</span>
+        <h3>First version, as a fresh graduate</h3>
+        <p class="muted">Built Yours Mobile and the first Yours POS with a teammate using Flutter, BLoC and Clean Architecture. I handled store releases and set up Crashlytics. We split the app into modules, but some depended on each other in circles, and builds were manual.</p>
+      </div>
+      <div class="step now">
+        <span class="when">Aug 2025 – present · PT Hare Business Consulting</span>
+        <h3>Rebuilt and released as Xeloka</h3>
+        <p class="muted">The product moved to a new company and I continued it on my own. I made dependencies flow one way from core, then added CI/CD, over-the-air updates, database migrations, offline OCR and many new features.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-head">
+      <span class="eyebrow">Side project</span>
+      <h2>Software engineering knowledge base</h2>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <p>A documentation site I built with Astro and Starlight to study and keep notes as an engineer: 249 topics across Flutter, Android, Node.js, SQL, Docker, CI/CD, security, testing and system design, plus a 451-question interview bank.</p>
+      </div>
+      <div class="card">
+        <p>It also holds reusable <span style="font-family:var(--mono)">AGENTS.md</span> instruction files and project templates, so AI coding agents follow the same engineering standards on new projects.</p>
+        <p class="hint">Link coming soon.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-head">
+      <span class="eyebrow">Skills</span>
+      <h2>What I work with</h2>
+    </div>
+    <div class="skills">
+      <div><h3>Mobile</h3><ul><li>Flutter &amp; Dart</li><li>Flutter desktop</li><li>Android (Kotlin basics)</li><li>iOS release</li></ul></div>
+      <div><h3>Architecture &amp; data</h3><ul><li>Clean Architecture</li><li>BLoC / Cubit, get_it</li><li>SQLite, migrations</li><li>REST APIs, Swagger, offline sync</li></ul></div>
+      <div><h3>Release &amp; quality</h3><ul><li>GitHub Actions</li><li>Shorebird OTA</li><li>Crashlytics, R8</li><li>Unit &amp; bloc tests</li></ul></div>
+    </div>
+  </section>
+
+  <section class="sec" id="contact">
+    <div class="sec-head">
+      <span class="eyebrow">Contact</span>
+      <h2>Let's talk</h2>
+    </div>
+    <div class="contact">
+      <p>Open to Flutter and mobile engineering roles.</p>
+      <div class="row"><code>imadegedeuditayanakusumaputra@gmail.com</code><button class="btn" type="button" id="copy-email">Copy email</button></div>
+      <div class="links">
+        <a class="btn" href="https://www.linkedin.com/in/didit-putra-2534b0277/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>Screenshots come from the public store listing. Company code and data are not shown.</footer>
+</main>
+
+<script>
+document.getElementById('copy-email').addEventListener('click', function () {
+  var el = document.querySelector('.contact code');
+  var btn = this;
+  navigator.clipboard.writeText(el.textContent).then(function () {
+    btn.textContent = 'Copied';
+    setTimeout(function () { btn.textContent = 'Copy email'; }, 1500);
+  }).catch(function () {
+    var r = document.createRange(); r.selectNodeContents(el);
+    var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+  });
+});
+</script>
+</body>
+</html>
